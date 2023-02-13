@@ -2,10 +2,12 @@ import { useEffect, useState, useRef } from 'react';
 import './App.css';
 import { MapaInicial } from './pages/mapaInicial.js'
 import { SegundoMapa } from './pages/segundoMapa.js'
+import { TerceiroMapa } from './pages/terceiroMapa.js' 
+import { colisaoParedes } from './scripts/colisaoParedes.js';
 
 function Ghost(props) {
   const [left, setLeft] = useState('50%')
-  const [top, setTop] = useState('7vh')
+  const [top, setTop] = useState('10vh')
   const [transform, setTransform] = useState(1)
   const [screenSize, setScreenSize] = useState({})
   const [dimensoes, setDimensions] = useState()
@@ -14,7 +16,7 @@ function Ghost(props) {
   const width1 = 70
   const [mapaAtual, setMapaAtual] = useState('MapaInicial')
 
-  const updateParentVariable = (dimensoes) => {
+  const updateParentVariable = (dimensoes) => {  
     setDimensions(dimensoes)
   }
 
@@ -35,59 +37,59 @@ function Ghost(props) {
 
   useEffect(() => {
     function testeCaminhos(top, left) {
-      dimensoes[6].map((element, index) => {
+      dimensoes[dimensoes.length - 1].map((element, index) => {
         let {height, width, x, y} = element
         
-        if(
-          left < x + width &&
-          left + width1 > x &&
-          top < y + height &&
-          top + height1 > y
-        ) {
-          console.log(index)
+        if(left < x + width && left + width1 > x && top < y + height && top + height1 > y) {
+          
           if(index === 0) {
-            setMapaAtual('SegundoMapa')
-            setLeft(screenSize.width - 80)
+            setMapaAtual('MapaInicial')
+            if(screenSize.width/2 > left) {
+              setLeft(window.innerWidth - 80)
+            } else {
+              setLeft(10)
+            }
           }
-        }
-        
+          if(index === 1) {
+            setMapaAtual('SegundoMapa')
+            setLeft(window.innerWidth - 80)
+          }
+          if(index === 2) {
+            setMapaAtual('TerceiroMapa')
+            setLeft(10)
+            
+          }
+          if(index === 3) {
+            setMapaAtual('QuartoMapa')
+            setTop(100)
+            setLeft(left)
+            
+          }
+        }   
       })
-    }
-
-    function testeParede(top, left) {
-      let testeColisao = dimensoes.map(element => {
-        let {height, width, x, y} = element
-
-        return (
-          left < x + width &&
-          left + width1 > x &&
-          top < y + height &&
-          top + height1 > y
-        );
-      })
-
-      if(testeColisao.some(element => element === true)) return true
     }
 
     function eventClick(event) {
       let tecla = event.key.toLowerCase();
         if (tecla === 'w' || tecla === 'arrowup') {
-          if(testeParede(top - 10, left)) return
+          if(colisaoParedes(top - 10, left, dimensoes, width1, height1)) return
           if(top > 0) setTop(top - 10);
         }
-        if (tecla === 's' || tecla === 'arrowdown') {   
-          if(testeParede(top + 10, left)) return
+        if (tecla === 's' || tecla === 'arrowdown') {
+          testeCaminhos(top + 10, left)  
+          if(colisaoParedes(top + 10, left, dimensoes, width1, height1)) return
           if(top < screenSize.height - 120) setTop(top + 10);
         }
-        if (tecla === 'a' || tecla === 'arrowleft') {
-          testeCaminhos(top - 10, left)
+        if (tecla === 'a' || tecla === 'arrowleft') {       
           setTransform(1)
-          if(testeParede(top, left - 10)) return
+          testeCaminhos(top, left)
+          if(colisaoParedes(top, left - 10, dimensoes, width1, height1)) return
           if(left > 0) setLeft(left - 10);
         }
         if (tecla === 'd' || tecla === 'arrowright') {
           setTransform(-1)
-          if(testeParede(top, left + 10)) return
+          testeCaminhos(top, left + 10)
+          if(colisaoParedes(top, left + 10, dimensoes, width1, height1)) return
           if(left < screenSize.width - 80) setLeft(left + 10);
         }
     }
@@ -100,10 +102,15 @@ function Ghost(props) {
     {mapaAtual === 'MapaInicial' ? (
       <MapaInicial onUpdate={updateParentVariable}/>
     ) : mapaAtual === 'SegundoMapa' ?(
-      <SegundoMapa />
+      <SegundoMapa onUpdate={updateParentVariable}/>
+    ) : mapaAtual === 'TerceiroMapa' ? (
+      <TerceiroMapa onUpdate={updateParentVariable} left={left} top={top} width1={width1} height1={height1}/>
+    ) : mapaAtual === 'QuartoMapa' ? (
+      <></>
     ) : (
       <></>
     )}
+      
       <img 
         src='/ghost.webp' 
         width={70}
@@ -117,6 +124,7 @@ function Ghost(props) {
           transform: `scaleX(${transform})`
         }}
       />
+      
     </>
   )
 }
