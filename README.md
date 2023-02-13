@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# Ghost Game - React
+### Descrição
+Este projeto utiliza a biblioteca React para criar páginas dinâmicas que se atualizam em tempo real conforme o usuário navega pelos caminhos. Com o uso de React, é possível criar uma experiência interativa e responsiva para o usuário, proporcionando uma sensação mais fluida e natural ao explorar o conteúdo disponível.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Características
+Durante o desenvolvimento deste jogo, foram criados scripts para controlar a movimentação e interação do personagem. Esses scripts permitem que o jogador possa controlar o personagem através de comandos de teclado e interagir com o ambiente e outros elementos do jogo.
 
-## Available Scripts
+### Movimentação e Colisão
+Foi implementado um evento na página que lê as teclas pressionadas pelo jogador e verifica se elas correspondem às teclas predefinidas (WASD) para a movimentação. O script então realiza uma verificação para garantir que a movimentação não resultará em uma colisão com algum objeto presente no ambiente do jogo.
 
-In the project directory, you can run:
+### Corredor Infinito
+Para criar o efeito de um corredor infinito no segundo mapa, o script faz com que as barras dos extremos e os blocos do início do corredor se movam para trás e cresçam continuamente. A diferença é que os blocos iniciais movem somente uma parte da distância e, em seguida, param e aguardam o retorno do personagem, enquanto as barras  continuam se movendo e crescendo sem parar.
 
-### `npm start`
+### Páginas dinâmicas
+Utilizando o React para atualizar a página de forma eficiente, foi criada uma variável de estado que controla o mapa do jogo. Essa variável é atualizada a cada colisão do personagem com um caminho, permitindo que o ambiente do jogo mude dinamicamente de acordo com a ação do jogador.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Instalação
+<ul>
+  <li>Clone este repositório usando o comando git clone https://github.com/ThiagoCrepequer/ghost-game</li>
+  <li>Navegue até a pasta do projeto com cd ghost-game</li>
+  <li>Instale as dependências do projeto com npm install</li>
+  <li>Inicie a aplicação com npm start</li>
+</ul>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Licença
+Este projeto está licenciado sob a licença MIT.
